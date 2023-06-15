@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 public class CalculatorGUIController {
 
     @FXML
-    private TextField txt_result;
+    private TextField txtResult;
 
     private long number1;
     private long number2;
@@ -17,10 +17,10 @@ public class CalculatorGUIController {
     @FXML
     void number(ActionEvent event) {
         String txt = ((Button)event.getSource()).getText();
-        if(txt_result != null) {
-            txt = txt_result.getText().concat(txt);
+        if(txtResult != null) {
+            txt = txtResult.getText().concat(txt);
         }
-        txt_result.setText(txt);
+        txtResult.setText(txt);
     }
 
     @FXML
@@ -29,26 +29,26 @@ public class CalculatorGUIController {
         try {
             switch (btn) {
                 case "=" -> {
-                    number2 = Long.parseLong(txt_result.getText());
+                    number2 = Long.parseLong(txtResult.getText());
                     CalculatorController calculatorController = new CalculatorController();
-                    double result = calculatorController.calculate(number1, number2, operation);
-                    txt_result.setText(String.valueOf(result));
+                    long result = calculatorController.calculate(number1, number2, operation);
+                    txtResult.setText(String.valueOf(result));
                 }
-                case "Canc" -> txt_result.setText("");
+                case "Canc" -> txtResult.setText("");
                 case "ln", "log", "√" -> {
-                    number1 = Long.parseLong(txt_result.getText());
+                    number1 = Long.parseLong(txtResult.getText());
                     CalculatorController calculatorController = new CalculatorController();
-                    double result = calculatorController.calculateSingle(number1, btn);
-                    txt_result.setText(String.valueOf(result));
+                    long result = (long) calculatorController.calculateSingle(number1, btn);
+                    txtResult.setText(String.valueOf(result));
                 }
                 default -> {
-                    number1 = Long.parseLong(txt_result.getText());
+                    number1 = Long.parseLong(txtResult.getText());
                     operation = btn;
-                    txt_result.setText("");
+                    txtResult.setText("");
                 }
             }
         } catch (IllegalArgumentException e) {
-            txt_result.setText("Error");
+            txtResult.setText("Error");
         }
     }
 }
